@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, Button, TextInput } from 'react-native';
+import { Audio } from 'expo-av';
 import { SimpleSurvey } from "react-native-simple-survey";
 
 import ActivityIndicator from '../components/ActivityIndicator';
@@ -14,9 +15,21 @@ import useApi from '../hooks/useApi';
 import routes from '../navigation/routes';
 
 function SurveyScreen({ navigation }) {
+    const [sound, setSound] = useState();
     const [uploadVisible, setUploadVisible] = useState(false);
     const [progress, setProgress] = useState(0);
     
+    async function playSound() {
+        // console.log('Loading Sound');
+        const { sound } = await Audio.Sound.createAsync(
+            require('../assets/music.mp3')
+        );
+        setSound(sound);
+
+        // console.log('Playing Sound');
+        await sound.playAsync(); 
+    }
+
     const {
         request: loadSurvey,
         data: webSurvey,
@@ -26,7 +39,16 @@ function SurveyScreen({ navigation }) {
 
     useEffect(() => {
         loadSurvey();
+        playSound();
     }, []);
+
+    useEffect(() => {
+        return sound
+        ? () => {
+            // console.log('Unloading Sound');
+            sound.unloadAsync(); }
+        : undefined;
+    }, [sound]);
 
     const renderButton = (data, index, isSelected, onPress) => (
         <View

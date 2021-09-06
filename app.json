@@ -28,6 +28,7 @@
     "web": {
       "favicon": "./app/assets/favicon.png"
     },
-    "description": ""
+    "description": "An app to connect students based on their interests,",
+    "githubUrl": "https://github.com/kailashchanel/app-20q"
   }
 }

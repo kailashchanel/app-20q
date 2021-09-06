@@ -20,13 +20,17 @@ function ViewUsersScreen({ navigation }) {
     preConditionFailed
   } = useApi(compareApi.getAllComparisons);
 
-  useEffect(() => {
-    loadComparisons();
-  }, []);  
+  // useEffect(() => {
+  //   loadComparisons();
+  // }, []);  
 
-  // if (!loading && !comparisons.length) {
-  //   navigation.navigate(routes.SURVEY);
-  // }
+  useEffect(() => {
+    const unsubscribe = navigation.addListener('focus', () => {
+      loadComparisons();
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   return (
     <>
