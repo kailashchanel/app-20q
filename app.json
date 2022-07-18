@@ -2,6 +2,7 @@
   "expo": {
     "name": "app-20q",
     "slug": "app-20q",
+    "owner": "kailash-ohs",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./app/assets/icon.png",
